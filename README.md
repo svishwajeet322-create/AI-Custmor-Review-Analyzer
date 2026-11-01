@@ -1,2 +1,2 @@
-# AI-Custmor-Review-Analyger
+# AI-Custmor-Review-Analyzer
 Machine Learning Sentiment Analysis Project 
