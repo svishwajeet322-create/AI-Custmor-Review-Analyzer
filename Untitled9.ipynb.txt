@@ -1,0 +1,107 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "source": [
+        "from  sklearn.feature_extraction.text import CountVectorizer\n",
+        "from sklearn.naive_bayes import MultinomialNB\n",
+        "import pandas as pd\n",
+        "data={    \"review\": [\n",
+        "        \"This product is amazing\",\n",
+        "        \"I love this phone\",\n",
+        "        \"Excellent quality\",\n",
+        "        \"Very bad product\",\n",
+        "        \"I hate this service\",\n",
+        "        \"Worst experience\",\n",
+        "        \"Product is average\",\n",
+        "        \"It is okay\",\n",
+        "        \"Nothing special\"\n",
+        "    ],\n",
+        "    \"sentiment\": [\n",
+        "        \"Positive\",\n",
+        "        \"Positive\",\n",
+        "        \"Positive\",\n",
+        "        \"Negative\",\n",
+        "        \"Negative\",\n",
+        "        \"Negative\",\n",
+        "        \"Neutral\",\n",
+        "        \"Neutral\",\n",
+        "        \"Neutral\"\n",
+        "    ]\n",
+        "}\n",
+        "\n",
+        "df = pd.DataFrame(data)\n",
+        "\n",
+        "print(df)\n",
+        "vectorizer = CountVectorizer()\n",
+        "\n",
+        "X = vectorizer.fit_transform(df[\"review\"])\n",
+        "\n",
+        "print(X.toarray())\n",
+        "y = df[\"sentiment\"]\n",
+        "\n",
+        "model = MultinomialNB()\n",
+        "\n",
+        "model.fit(X, y)\n",
+        "\n",
+        "print(\"AI Model Training Complete!\")\n",
+        "new_review=[\"i love this product\"]\n",
+        "new_data=vectorizer.transform(new_review)\n",
+        "prediction=model.predict(new_data)\n",
+        "print(\"AI prediction:\",prediction[0])"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 0
+        },
+        "id": "BIlGIROMMoZJ",
+        "outputId": "b10ad048-df36-4c90-e970-a04829963cb5"
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "                    review sentiment\n",
+            "0  This product is amazing  Positive\n",
+            "1        I love this phone  Positive\n",
+            "2        Excellent quality  Positive\n",
+            "3         Very bad product  Negative\n",
+            "4      I hate this service  Negative\n",
+            "5         Worst experience  Negative\n",
+            "6       Product is average   Neutral\n",
+            "7               It is okay   Neutral\n",
+            "8          Nothing special   Neutral\n",
+            "[[1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 1 0 0]\n",
+            " [0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 1 0 0]\n",
+            " [0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0]\n",
+            " [0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 0]\n",
+            " [0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 1 0 0]\n",
+            " [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1]\n",
+            " [0 1 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0]\n",
+            " [0 0 0 0 0 0 1 1 0 0 1 0 0 0 0 0 0 0 0]\n",
+            " [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0]]\n",
+            "AI Model Training Complete!\n",
+            "AI prediction: Positive\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
